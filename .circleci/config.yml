@@ -2,7 +2,7 @@ version: 2.1
 description: This is an inline job
 
 orbs:
-  inline_example:
+  expo-orb:
     jobs:
       my_inline_job:
         parameters:
@@ -10,7 +10,6 @@ orbs:
             description: # a helpful description
             type: string
             default: olleh
-        executor: my_inline_executor
         steps:
           - my_inline_command:
               greeting_name: <<parameters.greeting_name>>
@@ -20,21 +19,15 @@ orbs:
           greeting_name:
             type: string
         steps:
-          - run: npm install expo-cli --global
-    executors:
-      my_inline_executor:
-        parameters:
-          version:
-            type: string
-            default: "2.4"
-        docker:
-          - image: circleci/node
+          - run: sudo npm install expo-cli --global
 
 workflows:
   build-test-deploy:
+    docker:
+      - image: node
     jobs:
-      - inline_example/my_inline_job:
+      - expo-orb/my_inline_job:
           name: mybuild # best practice is to name each orb job
-      - inline_example/my_inline_job:
+      - expo-orb/my_inline_job:
           name: mybuild2
           greeting_name: world
