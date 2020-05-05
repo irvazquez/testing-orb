@@ -1,11 +1,21 @@
 version: 2.1
+description: This is an inline job
 
 orbs:
-    expo-orb: irvazquez/expo-orb@dev:alpha
-    orb-tools: circleci/orb-tools@9.0
+  expo-orb:
+    jobs:
+      install-expo:
+        steps:
+          - expo-io:
+              greeting_name: <<parameters.greeting_name>>
+    commands:
+      expo-io:
+        steps:
+          - run: npm install expo-cli --global
 
 workflows:
   build-test-deploy:
+    docker:
+      - image: node
     jobs:
-      steps:
-        - expo-orb
+      - expo-orb/install-expo
