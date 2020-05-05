@@ -21,8 +21,14 @@ orbs:
             type: string
         steps:
           - run:
+              name: NPM version
+              command: npm --version
+          - run:
+              name: NODE version
+              command: node --version
+          - run:
               name: Install Expo.io
-              command: sudo npm install expo-cli --global
+              command: npm install expo-cli --global
     executors:
       my_inline_executor:
         docker:
