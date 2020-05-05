@@ -4,30 +4,35 @@ description: This is an inline job
 orbs:
   expo-orb:
     jobs:
-      my_inline_job:
+      install-expo:
         parameters:
           greeting_name:
             description: # a helpful description
             type: string
             default: olleh
+        executor: my_inline_executor
         steps:
-          - my_inline_command:
+          - expo-io:
               greeting_name: <<parameters.greeting_name>>
     commands:
-      my_inline_command:
+      expo-io:
         parameters:
           greeting_name:
             type: string
         steps:
-          - run: sudo npm install expo-cli --global
+          - run:
+              name: Install Expo.io
+              command: sudo npm install expo-cli --global
+    executors:
+      my_inline_executor:
+        docker:
+          - image: node
 
 workflows:
   build-test-deploy:
-    docker:
-      - image: node
     jobs:
-      - expo-orb/my_inline_job:
+      - expo-orb/install-expo:
           name: mybuild # best practice is to name each orb job
-      - expo-orb/my_inline_job:
+      - expo-orb/install-expo:
           name: mybuild2
           greeting_name: world
