@@ -7,6 +7,5 @@ orbs:
 workflows:
   build-test-deploy:
     jobs:
-      - deploy2s3: # a sample job that would be defined above.
-          steps:
-            - expo-orb
+      steps:
+        - expo-orb
