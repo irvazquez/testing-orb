@@ -1,28 +1,37 @@
-version: 2
+version: 2.1
 
-jobs:
-  build-test:
-    docker:
-      - image: node:10.20.1
-    steps:
-      - run:
-          name: NPM version
-          command: npm --version
-      - run:
-          name: NODE version
-          command: node --version
-      - run:
-          name: Install Expo.io
-          command: npm install expo-cli --global
-      - run:
-          name: Install dependencies
-          command: npm install
-      - run:
-          name: Print pakage json
-          command: cat pakage-lock.json
+orbs:
+  expo-orb:
+    jobs:
+      install-expo:
+        working_directory: ~/repo
+        executor: expo-executor
+        steps:
+          - expo-io
+    commands:
+      expo-io:
+        steps:
+          - run:
+              name: NPM version
+              command: npm --version
+          - run:
+              name: NODE version
+              command: node --version
+          - run:
+              name: Install Expo.io
+              command: npm install expo-cli --global
+          - run:
+              name: Install dependencies
+              command: npm install
+          - run:
+              name: Print pakage json
+              command: cat pakage-lock.json
+    executors:
+      expo-executor:
+        docker:
+          - image: node:10.20.1
 
 workflows:
-  version: 2
-  build-test-deploy:
+  build-test:
     jobs:
-      - build-test
+      - expo-orb/install-expo
