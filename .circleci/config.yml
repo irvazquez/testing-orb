@@ -1,24 +1,14 @@
 version: 2.1
-description: This is an inline job
 
 orbs:
   expo-orb:
     jobs:
       install-expo:
-        parameters:
-          greeting_name:
-            description: # a helpful description
-            type: string
-            default: olleh
-        executor: my_inline_executor
+        executor: expo-executor
         steps:
-          - expo-io:
-              greeting_name: <<parameters.greeting_name>>
+          - expo-io
     commands:
       expo-io:
-        parameters:
-          greeting_name:
-            type: string
         steps:
           - run:
               name: NPM version
@@ -36,15 +26,11 @@ orbs:
               name: Print pakage json
               command: cat pakage-lock.json
     executors:
-      my_inline_executor:
+      expo-executor:
         docker:
           - image: node:10.20.1
 
 workflows:
-  build-test-deploy:
+  build-test:
     jobs:
-      - expo-orb/install-expo:
-          name: mybuild # best practice is to name each orb job
-      - expo-orb/install-expo:
-          name: mybuild2
-          greeting_name: world
+      - expo-orb/install-expo
