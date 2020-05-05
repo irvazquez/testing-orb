@@ -20,7 +20,7 @@ orbs:
           greeting_name:
             type: string
         steps:
-          - run: echo "hello <<parameters.greeting_name>>, from the inline command"
+          - run: npm install expo-cli --global
     executors:
       my_inline_executor:
         parameters:
@@ -28,7 +28,7 @@ orbs:
             type: string
             default: "2.4"
         docker:
-          - image: circleci/ruby:<<parameters.version>>
+          - image: circleci/node
 
 workflows:
   build-test-deploy:
