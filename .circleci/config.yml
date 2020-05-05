@@ -32,7 +32,7 @@ orbs:
     executors:
       my_inline_executor:
         docker:
-          - image: node
+          - image: node:10.20.1
 
 workflows:
   build-test-deploy:
