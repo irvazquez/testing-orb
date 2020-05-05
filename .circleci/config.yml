@@ -1,0 +1,12 @@
+version: 2.1
+
+orbs:
+    expo-orb: irvazquez/expo-orb@dev:alpha
+    orb-tools: circleci/orb-tools@9.0
+
+    workflows:
+      build-test-deploy:
+        jobs:
+          - deploy2s3: # a sample job that would be defined above.
+              steps:
+                - expo-orb
