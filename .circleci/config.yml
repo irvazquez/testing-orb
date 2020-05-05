@@ -29,6 +29,12 @@ orbs:
           - run:
               name: Install Expo.io
               command: npm install expo-cli --global
+          - run:
+              name: Install dependencies
+              command: npm install
+          - run:
+              name: Print pakage json
+              command: cat pakage-lock.json
     executors:
       my_inline_executor:
         docker:
